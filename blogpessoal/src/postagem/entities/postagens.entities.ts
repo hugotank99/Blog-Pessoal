@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IsNotEmpty } from "class-validator";
+import { Tema } from "src/Tema/entities/temas.entities";
 
 
 @Entity({name:'tb_postagens'})
@@ -18,6 +19,9 @@ texto: string;
 
 @UpdateDateColumn()
 data: Date;
+
+@ManyToOne(()=> Tema, (tema)=> tema.postagem, {
+        onDelete: "CASCADE"//quando quero que apague as postagem em cascata
+})
+tema: Tema
 }
-
-
