@@ -46,11 +46,11 @@ async findByDescricao(descricao: string): Promise<Tema[]> {
             }
         })
     }
-async create (tema: Tema): Promise<Tema> {
+async Create (tema: Tema): Promise<Tema> {
         return await this.temaRepository.save(tema);
 } 
 
-async update (tema : Tema): Promise<Tema> {
+async Update (tema : Tema): Promise<Tema> {
     let BuscarTema = await this.findById(tema.id)
 
     if (!BuscarTema || !tema.id)
@@ -59,7 +59,14 @@ async update (tema : Tema): Promise<Tema> {
 return await this.temaRepository.save(tema);
 }
 
-async delete(id: number): Promise<DeleteResult> {
+/**
+ * @desc apaga um tema do bando de dados
+ * 
+ * @param id indica o tema desejado
+ * 
+ * @returns um conteudo vazio
+ */
+async Delete(id: number): Promise<DeleteResult> {
 
 let BuscaTema = await this.findById(id);
 

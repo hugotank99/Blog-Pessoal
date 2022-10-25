@@ -1,10 +1,12 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IsNotEmpty } from "class-validator";
 import { Tema } from "src/Tema/entities/temas.entities";
+import { Usuario } from "src/usuario/entities/usuario.entity";
 
 
 @Entity({name:'tb_postagens'})
 export class Postagens {
+    [x: string]: any;
 
         @PrimaryGeneratedColumn()
         id: number;
@@ -24,4 +26,9 @@ data: Date;
         onDelete: "CASCADE"//quando quero que apague as postagem em cascata
 })
 tema: Tema
+
+@ManyToOne(() => Usuario, (usuario) => usuario.postagens, {
+        onDelete: "CASCADE"
+})
+usuario: Usuario
 }
