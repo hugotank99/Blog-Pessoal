@@ -4,26 +4,26 @@ import { Postagens } from "../entities/postagens.entities"
 import { PostagemService } from "../services/postagens.services"
 
 @Controller ('/postagens')
- export class postagensController {
+export class postagensController {
     constructor (private readonly PostagemService: PostagemService) {};
 
     @Get ()
     @HttpCode (HttpStatus.OK)
     findAll (): Promise<Postagens[]>{
             return this.PostagemService.findALL();
-        }
+    }
 
     @Get ('/:id')
     @HttpCode (HttpStatus.OK)
     findById (@Param('id',ParseIntPipe)id: number): Promise<Postagens> {
         return this.PostagemService.findById(id);
-        }
+    }
 
     @Post ()
     @HttpCode (HttpStatus.CREATED)
     create ( @Body() postagem: Postagens ): Promise<Postagens> { 
         return this.PostagemService.create(postagem);
-        }
+    }
 
     @Put()
     @HttpCode(HttpStatus.OK)
