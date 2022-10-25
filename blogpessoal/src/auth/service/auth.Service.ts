@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsuarioService } from 'src/usuario/service/usuario.Service';
 import { Bcrypt } from '../Bcript/Bcrypt';
+import { UsuarioLogin } from '../entities/usuarioLogin.entity';
 
 @Injectable()
 export class AuthService {
@@ -27,7 +28,7 @@ export class AuthService {
     return null;
   }
 
-  async login(usuarioLogin: any) {
+  async login(usuarioLogin: UsuarioLogin) {
 
     const payload = { username: usuarioLogin.usuario, sub: "blogpessoal" };
 
