@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IsNotEmpty } from "class-validator";
-import { Tema } from "src/Tema/entities/temas.entities";
-import { Usuario } from "src/usuario/entities/usuario.entity";
+import { Tema } from "../../Tema/entities/temas.entities";
+import { Usuario } from "../../usuario/entities/usuario.entity";
 
 
 @Entity({name:'tb_postagens'})
@@ -27,7 +27,7 @@ data: Date;
 })
 tema: Tema
 
-@ManyToOne(() => Usuario, (usuario) => usuario.postagens, {
+@ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
         onDelete: "CASCADE"
 })
 usuario: Usuario

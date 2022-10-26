@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { TemaService } from "src/Tema/Service/tema.service";
-import { TemaModule } from "src/Tema/tema.module";
+import { TemaService } from "../Tema/Service/tema.service";
+import { TemaModule } from "../Tema/tema.module";
 import { postagensController } from "./controller/postagem.controller";
 import { Postagens } from "./entities/postagens.entities";
 import { PostagemService } from "./services/postagens.services";

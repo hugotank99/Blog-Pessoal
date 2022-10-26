@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from "@nestjs/common"
-import { get } from "http";
 import { Postagens } from "../entities/postagens.entities"
 import { PostagemService } from "../services/postagens.services"
 
