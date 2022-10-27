@@ -19,13 +19,14 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
           port: 3306,
           username: 'root',
           password: 'root',
-          database: 'db_blogpessoal_test',
+          database: 'blogpessoaltest',
           autoLoadEntities: true,
           synchronize: true,
           logging: false,
           dropSchema: true
         }),
-        AppModule],
+        AppModule
+      ],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -78,7 +79,7 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
   });
 
   it('04 - Deve Listar todos os Usuários', async () => {
-    return request(app.getHttpServer())
+    request(app.getHttpServer())
       .get('/usuarios/all')
       .set('Authorization', `${token}`)
       .send({})
@@ -86,7 +87,7 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
   });
 
   it('05 - Deve Atualizar um Usuário', async () => {
-    return request(app.getHttpServer())
+    request(app.getHttpServer())
       .put('/usuarios/atualizar')
       .set('Authorization', `${token}`)
       .send({
