@@ -1,39 +1,50 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from "@nestjs/common"
-import { Postagens } from "../entities/postagens.entities"
-import { PostagemService } from "../services/postagens.services"
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
+import { Postagem } from "../entities/postagens.entities";
+import { PostagemService } from "../services/postagens.services";
 
-@Controller ('/postagens')
-export class postagensController {
-    constructor (private readonly PostagemService: PostagemService) {};
+@ApiTags('Postagem')
+@UseGuards(JwtAuthGuard)
+@Controller("/postagens")
+@ApiBearerAuth()
+export class PostagemController {
+  constructor(private readonly postagemService: PostagemService) { }
 
-    @Get ()
-    @HttpCode (HttpStatus.OK)
-    findAll (): Promise<Postagens[]>{
-            return this.PostagemService.findALL();
-    }
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  findAll(): Promise<Postagem[]> {
+    return this.postagemService.findALL();
+  }
 
-    @Get ('/:id')
-    @HttpCode (HttpStatus.OK)
-    findById (@Param('id',ParseIntPipe)id: number): Promise<Postagens> {
-        return this.PostagemService.findById(id);
-    }
+  @Get('/:id')
+  @HttpCode(HttpStatus.OK)
+  findById(@Param('id', ParseIntPipe) id: number): Promise<Postagem> {
+    return this.postagemService.findById(id);
+  }
 
-    @Post ()
-    @HttpCode (HttpStatus.CREATED)
-    create ( @Body() postagem: Postagens ): Promise<Postagens> { 
-        return this.PostagemService.create(postagem);
-    }
+  @Get('/titulo/:titulo')
+  @HttpCode(HttpStatus.OK)
+  findByTitulo(@Param('titulo') titulo: string): Promise<Postagem[]> {
+    return this.postagemService.findByTitulo(titulo);
+  }
 
-    @Put()
-    @HttpCode(HttpStatus.OK)
-    update(@Body() postagem: Postagens ): Promise<Postagens> {
-        return this.PostagemService.update(postagem);}
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  create(@Body() postagem: Postagem): Promise<Postagem> {
+    return this.postagemService.create(postagem);
+  }
 
-    @Delete('/:id')
-    @HttpCode(HttpStatus.NO_CONTENT)// o resultado de um delete sera quase sempre 404
-    delete (@Param(`id`, ParseIntPipe)
-        id: number    ) {
-       return this.PostagemService.delete(id); 
-    }
- }
+  @Put()
+  @HttpCode(HttpStatus.OK)
+  update(@Body() postagem: Postagem): Promise<Postagem> {
+    return this.postagemService.update(postagem);
+  }
 
+  @Delete('/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(@Param('id', ParseIntPipe) id: number){
+    return this.postagemService.delete(id);
+  }
+
+}

@@ -2,19 +2,19 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { TemaService } from "../../Tema/Service/tema.service";
 import { DeleteResult, ILike, Repository } from "typeorm";
-import { Postagens } from "../entities/postagens.entities";
+import { Postagem } from "../entities/postagens.entities";
 
 
 @Injectable()
 export class PostagemService {
     constructor(
-        @InjectRepository(Postagens)
-        private postagemRepository: Repository<Postagens>,
+        @InjectRepository(Postagem)
+        private postagemRepository: Repository<Postagem>,
         private temaService: TemaService
         
     ) { }
 
-    async findALL(): Promise<Postagens[]> {
+    async findALL(): Promise<Postagem[]> {
         return await this.postagemRepository.find({
             relations:{
                 tema: true,
@@ -23,7 +23,7 @@ export class PostagemService {
         });
     }
 
-    async findById(id: number): Promise<Postagens> {
+    async findById(id: number): Promise<Postagem> {
 
         let postagem = await this.postagemRepository.findOne({
             where: {
@@ -41,7 +41,7 @@ export class PostagemService {
         return postagem;
     }
 
-    async findByTitulo(titulo: string): Promise<Postagens[]> {
+    async findByTitulo(titulo: string): Promise<Postagem[]> {
         return await this.postagemRepository.find({
             where:{
                 titulo: ILike(`%${titulo}%`)
@@ -53,7 +53,7 @@ export class PostagemService {
         })
     }
 
-    async create(postagem: Postagens): Promise<Postagens> {
+    async create(postagem: Postagem): Promise<Postagem> {
         if (postagem.tema){
             let tema = await this.temaService.findById(postagem.tema.id)
 
@@ -65,7 +65,7 @@ export class PostagemService {
        
     }
 
-    async update(postagem: Postagens): Promise<Postagens> {
+    async update(postagem: Postagem): Promise<Postagem> {
         
         let buscaPostagem = await this.findById(postagem.id);
 
