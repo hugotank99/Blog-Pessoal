@@ -6,17 +6,19 @@ import { UsuarioService } from "../service/usuario.Service";
 
 @ApiTags('Usuario')
 @Controller("/usuarios")
-@ApiBearerAuth()
+
 export class UsuarioController {
     constructor(private readonly usuarioService: UsuarioService) { }
 
     @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @Get('/all')
     @HttpCode(HttpStatus.OK)
     findAll(): Promise<Usuario[]> {
         return this.usuarioService.findAll();
     }
 
+    
     @HttpCode(HttpStatus.CREATED)
     @Post('/cadastrar')
     async create(@Body() usuario: Usuario): Promise<Usuario> {
@@ -24,6 +26,7 @@ export class UsuarioController {
     }
 
     @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @Put('/atualizar')
     @HttpCode(HttpStatus.OK)
     async update(@Body() usuario: Usuario): Promise<Usuario> {
