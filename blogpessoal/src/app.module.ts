@@ -10,7 +10,8 @@ import { Usuario } from './usuario/entities/usuario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
-  imports:[/* [TypeOrmModule.forRoot({
+  imports:[
+    /* [TypeOrmModule.forRoot({
     type: 'mysql',
     host: 'localhost',
     port: 3306,
